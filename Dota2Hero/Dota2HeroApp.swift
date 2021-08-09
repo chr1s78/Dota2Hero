@@ -11,7 +11,8 @@ import SwiftUI
 struct Dota2HeroApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            LaunchView()
+            //ContentView()
         }
     }
 }
