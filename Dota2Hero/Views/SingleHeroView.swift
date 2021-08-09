@@ -11,36 +11,11 @@ import SDWebImageSwiftUI
 struct SingleHeroView: View {
 
     @Binding var chooseIndex: Int
+    @Binding var showDetail: Bool
     @State var isPresented: Bool = false
     
+    let namespace: Namespace.ID
     var stateData: Dota2HeroStatElement?
-    
-    var width: CGFloat {
-        guard let data = stateData else { return 0}
-        if chooseIndex == data.id {
-            return 320
-        } else {
-            return 240
-        }
-    }
-    
-    var height: CGFloat {
-        guard let data = stateData else { return 0}
-        if chooseIndex == data.id {
-            return 600
-        } else {
-            return 140
-        }
-    }
-    
-    var degress: Double {
-        guard let data = stateData else { return 0}
-        if chooseIndex == data.id {
-            return -10
-        } else {
-            return 40
-        }
-    }
     
     var body: some View {
         
@@ -55,18 +30,18 @@ struct SingleHeroView: View {
                     
                 /// hero info row
                 if chooseIndex == data.id {
-                    
                     heroInfoView(data: data)
                 }
-                
                 Spacer()
             }
+           // .matchedGeometryEffect(id: "image", in: namespace)
             .frame(width: width,
                    height: height, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
             .background(
-                chooseIndex == data.id ? LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0.9960784314, green: 0.8823529412, blue: 0.2509803922, alpha: 1)), Color(#colorLiteral(red: 0.9803921569, green: 0.4392156863, blue: 0.6039215686, alpha: 1))]), startPoint: .bottomTrailing, endPoint: .topLeading) : LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0.3880284131, green: 0.4124510288, blue: 0.437040776, alpha: 0)), Color(#colorLiteral(red: 0.3880284131, green: 0.4124510288, blue: 0.437040776, alpha: 0))]), startPoint: .bottomTrailing, endPoint: .topLeading)
+                chooseIndex == data.id ?
+                    LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0.9960784314, green: 0.8823529412, blue: 0.2509803922, alpha: 1)), Color(#colorLiteral(red: 0.9803921569, green: 0.4392156863, blue: 0.6039215686, alpha: 1))]), startPoint: .bottomTrailing, endPoint: .topLeading)
+                    : LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0.3880284131, green: 0.4124510288, blue: 0.437040776, alpha: 0)), Color(#colorLiteral(red: 0.3880284131, green: 0.4124510288, blue: 0.437040776, alpha: 0))]), startPoint: .bottomTrailing, endPoint: .topLeading)
             )
-            .background(chooseIndex == data.id ? Color.white : Color.clear)
             .clipShape(RoundedRectangle(cornerRadius: 12))
             .fixedSize(horizontal: false, vertical: true)
             .scaleEffect(0.9)
@@ -76,12 +51,38 @@ struct SingleHeroView: View {
                 anchor: .center,
                 perspective: 1
             )
-            
             .shadow(color: Color.black.opacity(0.8), radius: 2, x: 0, y: 1)
             .animation(.easeOut)
-            .onAppear {
-                print(data.localizedName)
-            }
+        }
+    }
+}
+
+
+extension SingleHeroView {
+     var width: CGFloat {
+        guard let data = stateData else { return 0 }
+        if chooseIndex == data.id {
+            return 320
+        } else {
+            return 240
+        }
+    }
+    
+    var height: CGFloat {
+        guard let data = stateData else { return 0 }
+        if chooseIndex == data.id {
+            return 560
+        } else {
+            return 140
+        }
+    }
+    
+    var degress: Double {
+        guard let data = stateData else { return 0 }
+        if chooseIndex == data.id {
+            return -10
+        } else {
+            return 40
         }
     }
 }
@@ -176,7 +177,7 @@ extension SingleHeroView {
                     Text("攻击频率")
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .background(Color.clear)
-                    Text("\(data.attackRate)")
+                    Text(String(format: "%.2f", data.attackRate))
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .background(Color.clear)
                     Text("弹道速度")
@@ -232,15 +233,22 @@ extension SingleHeroView {
                     Text("\(data.baseAttackMax)")
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .background(Color.clear)
-                    
-                    
+                    Text("移动速度")
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .background(Color.gray.opacity(0.3))
+                    Text("\(data.moveSpeed)")
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .background(Color.gray.opacity(0.3))
                 }
+
             }
             .font(.custom("Georgia", size: 12))
      
             Spacer()
             Button {
-                self.isPresented.toggle()
+                withAnimation(.spring()) {
+                    self.showDetail.toggle()
+                }
             } label: {
                 HStack {
                     Text("More Infomation ")
@@ -252,8 +260,6 @@ extension SingleHeroView {
                 .foregroundColor(.white)
             }
             .padding(.bottom, 10)
-            .fullScreenCover(isPresented: $isPresented, content: HeroMoreInfoView.init)
-
         }
         .frame(maxWidth: .infinity)
     }
@@ -273,8 +279,8 @@ struct attributeBackgroundView: View {
     }
 }
 
-struct SingleHeroView_Previews: PreviewProvider {
-    static var previews: some View {
-        SingleHeroView(chooseIndex: .constant(1))
-    }
-}
+//struct SingleHeroView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SingleHeroView(chooseIndex: .constant(1))
+//    }
+//}

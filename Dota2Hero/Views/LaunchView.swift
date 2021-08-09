@@ -68,7 +68,7 @@ extension LaunchView {
                 HStack(spacing: 0.0) {
                     ForEach(loadingText.indices) { i in
                         Text(loadingText[i])
-                            .font(.title2)
+                            .font(.subheadline)
                             .foregroundColor(.red)
                             .fontWeight(.bold)
                             .shadow(color: .black, radius: 1, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: 1.0)
@@ -83,7 +83,7 @@ extension LaunchView {
                         .frame(width: 20, height: 20)
                         .foregroundColor(.red)
                     Text(errorInfo)
-                        .font(.title2)
+                        .font(.subheadline)
                         .foregroundColor(.red)
                         .fontWeight(.bold)
                         .shadow(color: .black, radius: 1, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: 1.0)

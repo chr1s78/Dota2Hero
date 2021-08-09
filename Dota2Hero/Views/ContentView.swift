@@ -14,6 +14,10 @@ struct ContentView: View {
     @State var isChoose: Bool = false
     @State var chooseIndex: Int = 0
     
+    @State var showDetail: Bool = false
+    
+    @Namespace var ImageAnimation
+    
     var body: some View {
         ZStack {
             LottieView(filename: "magic")
@@ -25,37 +29,52 @@ struct ContentView: View {
                 )
                 .edgesIgnoringSafeArea(.all)
             
-            ScrollView(/*@START_MENU_TOKEN@*/.vertical/*@END_MENU_TOKEN@*/, showsIndicators: false) {
-                
-                ScrollViewReader { proxy in
-                    
-                    if let data = heroVM.heroState {
-                        
-                        // 使用LazyVStack 在放大时会有显示问题
-                        LazyVStack(alignment: .center, spacing: -60) {
-                            
-                            ForEach(data) { hero in
-                                
-                                SingleHeroView(chooseIndex: $chooseIndex, stateData: hero)
-                                    .id(hero.id)
-                                    .onTapGesture {
-                                        withAnimation(.spring()) {
-                                            self.chooseIndex = ( self.chooseIndex == hero.id ? 0 : hero.id )
-                                            proxy.scrollTo(hero.id, anchor: .center)
-                                            
-                                        }
-                                    }
-                            }
-                        }
-                        .frame(width: 300)
-                    }
-                }
+            ScrollHeroView()
+           
+            if showDetail {
+                HeroMoreInfoView(showDetail: $showDetail, chooseIndex: $chooseIndex)
+                    .environmentObject(heroVM)
             }
-            .frame(width: UIScreen.main.bounds.width/3)
-            .offset(x: 30)
-            .edgesIgnoringSafeArea(.all)
         }
         
+    }
+}
+
+extension ContentView {
+    func ScrollHeroView() -> some View {
+        ScrollView(/*@START_MENU_TOKEN@*/.vertical/*@END_MENU_TOKEN@*/, showsIndicators: false) {
+            
+            ScrollViewReader { proxy in
+                
+                if let data = heroVM.heroState {
+                    
+                    // 使用LazyVStack 在放大时会有显示问题
+                    VStack(alignment: .center, spacing: -60) {
+                        
+                        ForEach(data) { hero in
+                            
+                            SingleHeroView(
+                                chooseIndex: $chooseIndex,
+                                showDetail: $showDetail,
+                                namespace: ImageAnimation,
+                                stateData: hero)
+                                .id(hero.id)
+                                .onTapGesture {
+                                    withAnimation(.spring()) {
+                                        self.chooseIndex = ( self.chooseIndex == hero.id ? 0 : hero.id )
+                                        proxy.scrollTo(hero.id, anchor: .center)
+                                        
+                                    }
+                                }
+                        }
+                    }
+                    .frame(maxWidth: .infinity)
+                }
+            }
+        }
+        .frame(width: UIScreen.main.bounds.width)
+        .offset(x: 30)
+        .edgesIgnoringSafeArea(.all)
     }
 }
 
