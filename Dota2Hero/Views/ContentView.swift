@@ -32,8 +32,9 @@ struct ContentView: View {
             ScrollHeroView()
            
             if showDetail {
-                HeroMoreInfoView(showDetail: $showDetail, chooseIndex: $chooseIndex)
+                HeroMoreInfoView(showDetail: $showDetail, chooseIndex: $chooseIndex, imageNamespace: ImageAnimation)
                     .environmentObject(heroVM)
+                    .matchedGeometryEffect(id: "\(chooseIndex)", in: ImageAnimation)
             }
         }
         
@@ -56,12 +57,14 @@ extension ContentView {
                             SingleHeroView(
                                 chooseIndex: $chooseIndex,
                                 showDetail: $showDetail,
-                                namespace: ImageAnimation,
+                                imageNamespace: ImageAnimation,
                                 stateData: hero)
                                 .id(hero.id)
                                 .onTapGesture {
+                                    
                                     withAnimation(.spring()) {
                                         self.chooseIndex = ( self.chooseIndex == hero.id ? 0 : hero.id )
+                                        print(self.chooseIndex)
                                         proxy.scrollTo(hero.id, anchor: .center)
                                         
                                     }
