@@ -14,7 +14,7 @@ struct SingleHeroView: View {
     @Binding var showDetail: Bool
     @State var isPresented: Bool = false
     
-    let namespace: Namespace.ID
+    let imageNamespace: Namespace.ID
     var stateData: Dota2HeroStatElement?
     
     var body: some View {
@@ -27,6 +27,7 @@ struct SingleHeroView: View {
                 WebImage(url: URL(string: "https://steamcdn-a.akamaihd.net" + data.img))
                     .resizable()
                     .aspectRatio(contentMode: .fit)
+                //    .matchedGeometryEffect(id: "\(data.id)", in: imageNamespace)
                     
                 /// hero info row
                 if chooseIndex == data.id {
@@ -34,7 +35,7 @@ struct SingleHeroView: View {
                 }
                 Spacer()
             }
-           // .matchedGeometryEffect(id: "image", in: namespace)
+            .matchedGeometryEffect(id: "\(data.id)", in: imageNamespace)
             .frame(width: width,
                    height: height, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
             .background(
@@ -246,7 +247,7 @@ extension SingleHeroView {
      
             Spacer()
             Button {
-                withAnimation(.spring()) {
+                withAnimation(.easeInOut) {
                     self.showDetail.toggle()
                 }
             } label: {

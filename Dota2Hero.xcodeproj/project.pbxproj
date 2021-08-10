@@ -26,7 +26,7 @@
 		ADBF3B0126BFA8C2006C8065 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = ADBF3B0026BFA8C2006C8065 /* SDWebImageSwiftUI */; };
 		ADBF3B0326BFAADA006C8065 /* Dota2HeroStatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBF3B0226BFAADA006C8065 /* Dota2HeroStatModel.swift */; };
 		ADBF3B0B26BFCBBE006C8065 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBF3B0A26BFCBBE006C8065 /* LaunchView.swift */; };
-		ADF660E926C193E800A9DB6A /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = ADF660E826C193E800A9DB6A /* SwiftUICharts */; };
+		ADEBC1C626C2EB1E00DCB7EB /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = ADEBC1C526C2EB1E00DCB7EB /* SwiftUICharts */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,7 +57,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ADBF3B0126BFA8C2006C8065 /* SDWebImageSwiftUI in Frameworks */,
-				ADF660E926C193E800A9DB6A /* SwiftUICharts in Frameworks */,
+				ADEBC1C626C2EB1E00DCB7EB /* SwiftUICharts in Frameworks */,
 				ADBF3AFE26BFA583006C8065 /* Alamofire in Frameworks */,
 				AD2A12F826C0E76600098CE2 /* Lottie in Frameworks */,
 			);
@@ -199,7 +199,7 @@
 				ADBF3AFD26BFA583006C8065 /* Alamofire */,
 				ADBF3B0026BFA8C2006C8065 /* SDWebImageSwiftUI */,
 				AD2A12F726C0E76600098CE2 /* Lottie */,
-				ADF660E826C193E800A9DB6A /* SwiftUICharts */,
+				ADEBC1C526C2EB1E00DCB7EB /* SwiftUICharts */,
 			);
 			productName = Dota2Hero;
 			productReference = ADBF3ADB26BFA4E9006C8065 /* Dota2Hero.app */;
@@ -232,7 +232,7 @@
 				ADBF3AFC26BFA583006C8065 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				ADBF3AFF26BFA8C2006C8065 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 				AD2A12F626C0E76600098CE2 /* XCRemoteSwiftPackageReference "lottie-ios" */,
-				ADF660E726C193E800A9DB6A /* XCRemoteSwiftPackageReference "SwiftUICharts" */,
+				ADEBC1C426C2EB1E00DCB7EB /* XCRemoteSwiftPackageReference "chart-view-swiftui" */,
 			);
 			productRefGroup = ADBF3ADC26BFA4E9006C8065 /* Products */;
 			projectDirPath = "";
@@ -488,12 +488,12 @@
 				minimumVersion = 2.0.2;
 			};
 		};
-		ADF660E726C193E800A9DB6A /* XCRemoteSwiftPackageReference "SwiftUICharts" */ = {
+		ADEBC1C426C2EB1E00DCB7EB /* XCRemoteSwiftPackageReference "chart-view-swiftui" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://gitee.com/chr1s78/SwiftUICharts.git";
+			repositoryURL = "https://gitee.com/chr1s78/chart-view-swiftui.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.6.3;
+				minimumVersion = 1.5.5;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -514,9 +514,9 @@
 			package = ADBF3AFF26BFA8C2006C8065 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
 			productName = SDWebImageSwiftUI;
 		};
-		ADF660E826C193E800A9DB6A /* SwiftUICharts */ = {
+		ADEBC1C526C2EB1E00DCB7EB /* SwiftUICharts */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = ADF660E726C193E800A9DB6A /* XCRemoteSwiftPackageReference "SwiftUICharts" */;
+			package = ADEBC1C426C2EB1E00DCB7EB /* XCRemoteSwiftPackageReference "chart-view-swiftui" */;
 			productName = SwiftUICharts;
 		};
 /* End XCSwiftPackageProductDependency section */
